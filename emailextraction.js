@@ -4,9 +4,24 @@ function extractEmails(file){
     try{
         const data = fs.readFileSync(file);
         const text= data.toString();
-        const regex = /\b[A-Za-z0-9.'_%+-]+@softwire.com\b/g;
+        const regex = /\b[A-Za-z0-9.'_%+-]+@[A-Za-z-]+\.([a-z]{3}|| [a-z]{2}\.[a-z]{2})\b/g;
         const extract = text.match(regex);
-        return extract;
+        const dictionary = {};
+        extract.forEach((match)=>{
+            
+            // FM note - lines 13 & 14 are ideas of how to only add domain names to the dictionary
+            //const domainRegex = @[A-Za-z-]+\.([a-z]{3}|| [a-z]{2}\.[a-z]{2})\b/g;
+            //const domain = 
+
+            const domain = match;
+            if(dictionary[domain]){
+                dictionary[domain]++;
+            }
+            else {
+                dictionary[domain]=1;
+            }
+ });
+        return dictionary;
     }
 
     catch(err){
@@ -16,6 +31,5 @@ function extractEmails(file){
 }
 
 const softwireEmails = extractEmails('test.txt');
-const count = softwireEmails.length;
-console.log(`The domain softwire.com appears ${count} times`);
+console.log(softwireEmails);
 
