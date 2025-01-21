@@ -4,7 +4,7 @@ function extractEmails(file){
     try{
         const data = fs.readFileSync(file);
         const text= data.toString();
-        const regex = /[A-Za-z0-9.'_%+-]+@softwire.com/g;
+        const regex = /\b[A-Za-z0-9.'_%+-]+@softwire.com\b/g;
         const extract = text.match(regex);
         return extract;
     }
