@@ -4,14 +4,9 @@ function extractEmails(file){
     try{
         const data = fs.readFileSync(file);
         const text= data.toString();
-        let count =0;
-
-        for(let i=0; i<=text.length;i++) {
-            if(text.substring(i,i+13)==="@softwire.com"){
-                count++;
-            }
-        }
-        return count;
+        const regex = /[A-Za-z0-9.'_%+-]+@softwire.com/g;
+        const extract = text.match(regex);
+        return extract;
     }
 
     catch(err){
@@ -20,6 +15,7 @@ function extractEmails(file){
     }
 }
 
-const count = extractEmails('test.txt');
+const softwireEmails = extractEmails('test.txt');
+const count = softwireEmails.length;
 console.log(`The domain softwire.com appears ${count} times`);
 
